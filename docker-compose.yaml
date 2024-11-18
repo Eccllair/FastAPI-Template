@@ -1,0 +1,18 @@
+services:
+  db:
+    image: "postgres"
+    container_name: db
+    env_file:
+      - database.env
+    ports:
+      - "5432:5432"
+
+  webapp:
+    build: .
+    container_name: FastAPI
+    ports:
+      - "4001:4001"
+    volumes:
+      - ./logs:/var/www/partner-homenetwork/logs
+    depends_on:
+     - db
